@@ -36,7 +36,7 @@ def test_prestar_libro_exitoso(biblioteca):
     libro = Libro(1, "1984", "George Orwell")
     biblioteca.agregar_libro(libro)
 
-    ok, msg = biblioteca.prestar_libro("1")
+    ok, _ = biblioteca.prestar_libro("1")
     assert ok is True
     assert libro.disponible is False
 
@@ -46,7 +46,7 @@ def test_prestar_libro_ya_prestado(biblioteca):
     biblioteca.agregar_libro(libro)
     biblioteca.prestar_libro("1")
 
-    ok, msg = biblioteca.prestar_libro("1")
+    ok, _ = biblioteca.prestar_libro("1")
     assert ok is False
 
 
@@ -55,7 +55,7 @@ def test_devolver_libro_exitoso(biblioteca):
     biblioteca.agregar_libro(libro)
     biblioteca.prestar_libro("1")
 
-    ok, msg = biblioteca.devolver_libro("1")
+    ok, _ = biblioteca.devolver_libro("1")
     assert ok is True
     assert libro.disponible is True
 

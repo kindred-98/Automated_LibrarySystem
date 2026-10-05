@@ -10,6 +10,9 @@ except ImportError:
 from src.services.biblioteca import Biblioteca
 from src.models.libro import Libro
 
+PROMPT_ID_LIBRO = "ID del libro:"
+PROMPT_TITULO = "Título:"
+
 
 class BibliotecaGUI:
     def __init__(self, root):
@@ -47,8 +50,8 @@ class BibliotecaGUI:
             )
 
     def agregar(self):
-        id_libro = simpledialog.askstring("ID", "ID del libro:")
-        titulo = simpledialog.askstring("Título", "Título:")
+        id_libro = simpledialog.askstring("ID", PROMPT_ID_LIBRO)
+        titulo = simpledialog.askstring("Título", PROMPT_TITULO)
         autor = simpledialog.askstring("Autor", "Autor:")
 
         if not (id_libro and titulo and autor):
@@ -63,19 +66,19 @@ class BibliotecaGUI:
             messagebox.showerror("Error", str(e))
 
     def prestar(self):
-        id_libro = simpledialog.askstring("Prestar", "ID del libro:")
-        ok, msg = self.biblioteca.prestar_libro(id_libro)
+        id_libro = simpledialog.askstring("Prestar", PROMPT_ID_LIBRO)
+        _, msg = self.biblioteca.prestar_libro(id_libro)
         messagebox.showinfo("Resultado", msg)
         self.actualizar_lista()
 
     def devolver(self):
-        id_libro = simpledialog.askstring("Devolver", "ID del libro:")
-        ok, msg = self.biblioteca.devolver_libro(id_libro)
+        id_libro = simpledialog.askstring("Devolver", PROMPT_ID_LIBRO)
+        _, msg = self.biblioteca.devolver_libro(id_libro)
         messagebox.showinfo("Resultado", msg)
         self.actualizar_lista()
 
     def buscar_local(self):
-        titulo = simpledialog.askstring("Buscar", "Título:")
+        titulo = simpledialog.askstring("Buscar", PROMPT_TITULO)
         libro = self.biblioteca.buscar_por_titulo(titulo)
         if libro:
             messagebox.showinfo("Encontrado", str(libro))
@@ -83,7 +86,7 @@ class BibliotecaGUI:
             messagebox.showwarning("No encontrado", "No existe.")
 
     def buscar_publico(self):
-        titulo = simpledialog.askstring("Buscar OpenLibrary", "Título:")
+        titulo = simpledialog.askstring("Buscar OpenLibrary", PROMPT_TITULO)
         if not titulo:
             return
 
